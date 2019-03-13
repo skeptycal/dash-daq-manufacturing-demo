@@ -140,10 +140,22 @@ app.layout = html.Div(id='app-content', children=[
             label='Packaging materials'
         )
     ]),
+    html.Div(
+        className='indicator-box',
+        children=[
+            html.H4("Manufacturing room temperature"),
+            daq.Thermometer(
+                id='manufacturing-temp', 
+                min=50, max=90,
+                value=70,
+                color='blue'
+            )
+        ]
+    ),
     dcc.Interval(
         id='polling-interval',
         n_intervals=0,
-        interval=0.5*1000,
+        interval=1*1000,
         disabled=True
     ),
     dcc.Store(
@@ -151,7 +163,6 @@ app.layout = html.Div(id='app-content', children=[
         data=[]
     )
 ])
-
 
 @app.callback(
     [Output('polling-interval', 'disabled'),
